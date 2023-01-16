@@ -1,0 +1,23 @@
+---
+- name: Create service directories
+  file:
+    path: '{{ dir.path }}'
+    mode: '{{ dir.mode | default(omit) }}'
+    owner: '{{ dir.owner | default("dockremap") }}'
+    group: 'docker'
+    state: 'directory'
+    recurse: true
+  with_items:
+    - { path: '{{ coturn_service_path }}', mode: '0755' }
+    - { path: '{{ coturn_cont_vol }}',     mode: '0750' }
+  loop_control:
+    loop_var: dir
+
+- name: Create coTURN server config
+  template:
+    src:   'turnserver.conf.j2'
+    dest:  '{{ coturn_cont_vol }}/turnserver.conf'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0755
+  register: coturn_config

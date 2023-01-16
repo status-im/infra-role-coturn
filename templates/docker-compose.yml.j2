@@ -1,0 +1,12 @@
+---
+version: '3.7'
+services:
+  app:
+    container_name: '{{ coturn_cont_name }}'
+    image: '{{ coturn_cont_image }}'
+    restart: 'always'
+    network_mode: 'host'
+    volumes:
+      - '{{ coturn_cont_vol }}:/config'
+    command: |
+      -c /config/turnserver.conf

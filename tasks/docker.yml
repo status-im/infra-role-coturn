@@ -1,0 +1,16 @@
+---
+- name: Create Docker Compose file
+  template:
+    src: 'docker-compose.yml.j2'
+    dest: '{{ coturn_compose_file }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode: 0640
+
+- name: Create service containers
+  docker_compose:
+    project_src: '{{ coturn_service_path }}'
+    state: '{{ compose_state }}'
+    recreate: '{{ compose_recreate }}'
+    restarted: '{{ coturn_config.changed or compose_restart }}'
+    pull: true
