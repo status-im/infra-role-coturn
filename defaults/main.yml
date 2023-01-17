@@ -7,7 +7,12 @@ coturn_compose_file: '{{ coturn_service_path }}/docker-compose.yml'
 coturn_cont_tag: '4.6.1-alpine'
 coturn_cont_image: 'coturn/coturn:{{ coturn_cont_tag }}'
 coturn_cont_name: '{{ coturn_service_name }}'
-coturn_cont_vol: '{{ coturn_service_path }}/config'
+coturn_cont_config_vol: '{{ coturn_service_path }}/config'
+coturn_cont_certs_vol: '{{ coturn_service_path }}/certs'
+
+# certificates
+#coturn_certs_full_chain_path: ~
+#coturn_certs_private_key_path: ~
 
 # config
 coturn_verbose: false
@@ -15,12 +20,13 @@ coturn_metrics_enabled: false
 coturn_fingerprint_enabled: false
 coturn_domain: 'turn.example.org'
 coturn_external_ip: '{{ ansible_host }}'
-coturn_metrics_enabled: false
+coturn_metrics_port: false
 coturn_metrics_port: 9641
 coturn_min_port: 49152
 coturn_max_port: 65535
 coturn_listen_port: 3478
 coturn_listen_interface: 'lo'
+coturn_admin_enabled: true
 coturn_admin_port: 8080
 coturn_admin_addr: '127.0.0.1'
 

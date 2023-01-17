@@ -7,6 +7,7 @@ services:
     restart: 'always'
     network_mode: 'host'
     volumes:
-      - '{{ coturn_cont_vol }}:/config'
+      - '{{ coturn_cont_config_vol }}:/config'
+      - '{{ coturn_cont_certs_vol }}:/certs'
     command: |
       -c /config/turnserver.conf

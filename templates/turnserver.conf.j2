@@ -462,14 +462,14 @@ stale-nonce=0
 # configuration file.
 # Use PEM file format.
 #
-#cert=/usr/local/etc/turn_server_cert.pem
+cert={{ coturn_certs_full_chain_path | mandatory | regex_replace(coturn_cont_certs_vol, "/certs") }}
 
 # Private key file.
 # Use an absolute path or path relative to the
 # configuration file.
 # Use PEM file format.
 #
-#pkey=/usr/local/etc/turn_server_pkey.pem
+pkey={{ coturn_certs_private_key_path | mandatory | regex_replace(coturn_cont_certs_vol, "/certs") }}
 
 # Private key file password, if it is in encoded format.
 # This option has no default value.
@@ -479,7 +479,7 @@ stale-nonce=0
 # Allowed OpenSSL cipher list for TLS/DTLS connections.
 # Default value is "DEFAULT".
 #
-#cipher-list="DEFAULT"
+cipher-list="DEFAULT"
 
 # CA file in OpenSSL format.
 # Forces TURN server to verify the client SSL certificates.
