@@ -8,7 +8,7 @@ services:
     network_mode: 'host'
     user: '{{ coturn_cont_uid }}'
     tmpfs:
-      - '/run'
+      - '/var/run:mode=777'
     volumes:
       - '{{ coturn_cont_config_vol }}:/config'
       - '{{ coturn_cont_certs_vol }}:/certs'
