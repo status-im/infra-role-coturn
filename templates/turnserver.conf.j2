@@ -9,13 +9,13 @@
 # Listener interface device (optional, Linux only).
 # NOT RECOMMENDED.
 #
-listening-device={{ coturn_listen_interface }}
+#listening-device=lo
 
 # TURN listener port for UDP and TCP (Default: 3478).
 # Note: actually, TLS & DTLS sessions can connect to the
 # "plain" TCP & UDP port(s), too - if allowed by configuration.
 #
-listening-port={{ coturn_listen_port }}
+listening-port={{ coturn_stun_tcp_port }}
 
 # TURN listener port for TLS (Default: 5349).
 # Note: actually, "plain" TCP & UDP sessions can connect to the TLS & DTLS
@@ -27,7 +27,7 @@ listening-port={{ coturn_listen_port }}
 # TLS version 1.0, 1.1 and 1.2.
 # For secure UDP connections, Coturn supports DTLS version 1.
 #
-#tls-listening-port=5349
+tls-listening-port={{ coturn_stun_tls_port }}
 
 # Alternative listening port for UDP and TCP listeners;
 # default (or zero) value means "listening port plus one".
@@ -38,12 +38,12 @@ listening-port={{ coturn_listen_port }}
 # RFC 5780 is supported only by UDP protocol, other protocols
 # are listening to that endpoint only for "symmetry".
 #
-#alt-listening-port=0
+alt-listening-port={{ coturn_stun_tcp_alt_port }}
 
 # Alternative listening port for TLS and DTLS protocols.
 # Default (or zero) value means "TLS listening port plus one".
 #
-#alt-tls-listening-port=0
+alt-tls-listening-port={{ coturn_stun_tls_alt_port }}
 
 # Some network setups will require using a TCP reverse proxy in front
 # of the STUN server. If the proxy port option is set a single listener
@@ -730,7 +730,9 @@ no-cli
 # If it is enabled it also enables a http a simple static banner page
 # with a small reminder that the admin page is available only on https.
 #
-#web-admin
+{% if coturn_admin_enabled %}
+web-admin
+{% endif %}
 
 # Local system IP address to be used for Web-admin server endpoint. Default value is 127.0.0.1.
 #
@@ -738,7 +740,7 @@ web-admin-ip={{ coturn_admin_addr }}
 
 # Web-admin server port. Default is 8080.
 #
-coturn_admin_port={{ coturn_admin_port }}
+web-admin-port={{ coturn_admin_port }}
 
 # Web-admin server listen on STUN/TURN worker threads
 # By default it is disabled for security reasons! (Not recommended in any production environment!)
