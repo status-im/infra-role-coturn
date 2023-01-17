@@ -6,6 +6,9 @@ services:
     image: '{{ coturn_cont_image }}'
     restart: 'always'
     network_mode: 'host'
+    user: '{{ coturn_cont_uid }}'
+    tmpfs:
+      - '/run'
     volumes:
       - '{{ coturn_cont_config_vol }}:/config'
       - '{{ coturn_cont_certs_vol }}:/certs'
