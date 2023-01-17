@@ -21,7 +21,7 @@ coturn_metrics_enabled: false
 coturn_fingerprint_enabled: false
 coturn_domain: 'turn.example.org'
 coturn_external_ip: '{{ ansible_host }}'
-coturn_metrics_port: false
+coturn_metrics_enabled: true
 coturn_metrics_port: 9641
 coturn_relay_min_port: 49152
 coturn_relay_max_port: 65535
