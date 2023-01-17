@@ -125,7 +125,10 @@ alt-tls-listening-port={{ coturn_stun_tls_alt_port }}
 #
 # By default, this value is empty, and no address mapping is used.
 #
-external-ip={{ coturn_external_ip }}
+#external-ip=1.2.3.4
+{% for ip in coturn_external_ips %}
+external-ip={{ ip }}
+{% endfor %}
 
 # Number of the relay threads to handle the established connections
 # (in addition to authentication thread and the listener thread).
