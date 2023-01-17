@@ -21,6 +21,7 @@ coturn_verbose: false
 coturn_metrics_enabled: false
 coturn_fingerprint_enabled: false
 coturn_domain: 'turn.example.org'
+coturn_listening_ips: ['0.0.0.0', '::']
 coturn_external_ips: ['{{ ansible_host }}']
 
 # ports

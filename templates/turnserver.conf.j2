@@ -60,8 +60,9 @@ alt-tls-listening-port={{ coturn_stun_tls_alt_port }}
 #listening-ip=172.17.19.101
 #listening-ip=10.207.21.238
 #listening-ip=2607:f0d0:1002:51::4
-listening-ip=0.0.0.0
-listening-ip=::
+{% for ip in coturn_listening_ips %}
+listening-ip={{ ip }}
+{% endfor %}
 
 # Auxiliary STUN/TURN server listening endpoint.
 # Aux servers have almost full TURN and STUN functionality.
