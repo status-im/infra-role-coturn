@@ -10,6 +10,7 @@
     - { path: '{{ coturn_service_path }}',    mode: '0755' }
     - { path: '{{ coturn_cont_config_vol }}', mode: '0755' }
     - { path: '{{ coturn_cont_certs_vol }}',  mode: '0750', owner: '{{ coturn_cont_uid }}' }
+    - { path: '{{ coturn_cont_data_vol }}',   mode: '0750', owner: '{{ coturn_cont_uid }}' }
   loop_control:
     loop_var: dir
 

@@ -12,5 +12,6 @@ services:
     volumes:
       - '{{ coturn_cont_config_vol }}:/config'
       - '{{ coturn_cont_certs_vol }}:/certs'
+      - '{{ coturn_cont_data_vol }}:/data'
     command: |
       -c /config/turnserver.conf

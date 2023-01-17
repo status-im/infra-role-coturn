@@ -9,6 +9,7 @@ coturn_cont_image: 'coturn/coturn:{{ coturn_cont_tag }}'
 coturn_cont_name: '{{ coturn_service_name }}'
 coturn_cont_config_vol: '{{ coturn_service_path }}/config'
 coturn_cont_certs_vol: '{{ coturn_service_path }}/certs'
+coturn_cont_data_vol: '{{ coturn_service_path }}/data'
 coturn_cont_uid: 65534
 
 # certificates
