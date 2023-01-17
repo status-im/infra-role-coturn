@@ -29,9 +29,12 @@ coturn_metrics_port: 9641
 coturn_relay_min_port: 49152
 coturn_relay_max_port: 65535
 coturn_stun_tcp_port: 3478
-coturn_stun_tcp_alt_port: 8080
 coturn_stun_tls_port: 5349
+# Alt ports do not work with no-rfc5780 enabled.
+coturn_stun_tcp_alt_port: 8080
 coturn_stun_tls_alt_port: 8443
+
+# admin
 coturn_admin_enabled: true
 coturn_admin_port: 8080
 coturn_admin_addr: '127.0.0.1'
