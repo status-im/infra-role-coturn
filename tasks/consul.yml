@@ -4,11 +4,22 @@
   vars:
     consul_config_name: '{{ coturn_service_name }}'
     consul_services:
-      - name: '{{ coturn_service_name }}'
+      - id:   '{{ coturn_service_name }}'
+        name: '{{ coturn_service_name }}'
         tags: ['coturn', 'turn', 'stun']
-        port: '{{ coturn_listen_port }}'
+        port: '{{ coturn_stun_tcp_port }}'
         address: '{{ ansible_local.wireguard.address }}'
         checks:
           - id:   '{{ coturn_service_name }}-app-health'
             type: 'tcp'
-            tcp:  'localhost:{{ coturn_listen_port }}'
+            tcp:  'localhost:{{ coturn_stun_tcp_port }}'
+
+      - id:   '{{ coturn_service_name }}-metrics'
+        name: '{{ coturn_service_name }}-metrics'
+        tags: ['coturn', 'turn', 'stun', 'metrics']
+        port: '{{ coturn_metrics_port }}'
+        address: '{{ ansible_local.wireguard.address }}'
+        checks:
+          - id:   '{{ coturn_service_name }}-app-health'
+            type: 'http'
+            http: 'http://localhost:{{ coturn_metrics_port }}/'
