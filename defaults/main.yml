@@ -41,6 +41,7 @@ coturn_admin_port: 8080
 coturn_admin_addr: '127.0.0.1'
 
 # auth
+coturn_oauth_enabled: false
 coturn_auth_enabled: false
 #coturn_auth_secret: ~
 

@@ -253,7 +253,7 @@ server-name={{ coturn_domain }}
 
 # Flag that allows oAuth authentication.
 #
-{% if not coturn_auth_enabled %}#{% endif %}oauth
+{% if not coturn_oauth_enabled %}#{% endif %}oauth
 
 # 'Static' user accounts for the long term credentials mechanism, only.
 # This option cannot be used with TURN REST API.
