@@ -18,14 +18,13 @@ coturn_cont_uid: 65534
 
 # config
 coturn_verbose: false
-coturn_metrics_enabled: false
+coturn_metrics_enabled: true
 coturn_fingerprint_enabled: false
 coturn_domain: 'turn.example.org'
 coturn_listening_ips: ['0.0.0.0', '::']
 coturn_external_ips: ['{{ ansible_host }}']
 
 # ports
-coturn_metrics_enabled: true
 coturn_metrics_port: 9641
 coturn_relay_min_port: 49152
 coturn_relay_max_port: 65535
