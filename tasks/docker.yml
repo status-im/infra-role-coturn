@@ -8,9 +8,8 @@
     mode: 0640
 
 - name: Create service containers
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: '{{ coturn_service_path }}'
-    state: '{{ compose_state }}'
+    state: "{{ 'restarted' if compose_state == 'present' and (coturn_config.changed or compose_restart) else compose_state }}"
     recreate: '{{ compose_recreate }}'
-    restarted: '{{ coturn_config.changed or compose_restart }}'
-    pull: true
+    pull: 'missing'
