@@ -15,7 +15,7 @@
 # Note: actually, TLS & DTLS sessions can connect to the
 # "plain" TCP & UDP port(s), too - if allowed by configuration.
 #
-listening-port={{ coturn_stun_tcp_port }}
+listening-port={{ coturn_listen_port }}
 
 # TURN listener port for TLS (Default: 5349).
 # Note: actually, "plain" TCP & UDP sessions can connect to the TLS & DTLS
@@ -27,7 +27,7 @@ listening-port={{ coturn_stun_tcp_port }}
 # TLS version 1.0, 1.1 and 1.2.
 # For secure UDP connections, Coturn supports DTLS version 1.
 #
-tls-listening-port={{ coturn_stun_tls_port }}
+tls-listening-port={{ coturn_listen_tls_port }}
 
 # Alternative listening port for UDP and TCP listeners;
 # default (or zero) value means "listening port plus one".
@@ -38,12 +38,12 @@ tls-listening-port={{ coturn_stun_tls_port }}
 # RFC 5780 is supported only by UDP protocol, other protocols
 # are listening to that endpoint only for "symmetry".
 #
-alt-listening-port={{ coturn_stun_tcp_alt_port }}
+# alt-listening-port={{ coturn_stun_tcp_alt_port }}
 
 # Alternative listening port for TLS and DTLS protocols.
 # Default (or zero) value means "TLS listening port plus one".
 #
-alt-tls-listening-port={{ coturn_stun_tls_alt_port }}
+# alt-tls-listening-port={{ coturn_stun_tls_alt_port }}
 
 # Some network setups will require using a TCP reverse proxy in front
 # of the STUN server. If the proxy port option is set a single listener
@@ -287,7 +287,7 @@ server-name={{ coturn_domain }}
 # The default file name is /var/db/turndb or /usr/local/var/db/turndb or
 # /var/lib/turn/turndb.
 #
-userdb=/data/coturn.db
+{% if coturn_auth_enabled %}#{% endif %}userdb=/data/coturn.db
 
 # PostgreSQL database connection string in the case that you are using PostgreSQL
 # as the user database.
@@ -401,17 +401,20 @@ realm={{ coturn_domain }}
 # Uncomment if no TCP client listener is desired.
 # By default TCP client listener is always started.
 #
+# TODO: add harding later TCP->TLS
 #no-tcp
 
 # Uncomment if no TLS client listener is desired.
 # By default TLS client listener is always started.
 #
-#no-tls
+# TODO: fix TLS (certificates)
+no-tls
 
 # Uncomment if no DTLS client listener is desired.
 # By default DTLS client listener is always started.
 #
-#no-dtls
+# INFO: looks like noone use it
+no-dtls
 
 # Uncomment if no UDP relay endpoints are allowed.
 # By default UDP relay endpoints are enabled (like in RFC 5766).
@@ -421,7 +424,7 @@ realm={{ coturn_domain }}
 # Uncomment if no TCP relay endpoints are allowed.
 # By default TCP relay endpoints are enabled (like in RFC 6062).
 #
-#no-tcp-relay
+no-tcp-relay
 
 # Uncomment if extra security is desired,
 # with nonce value having a limited lifetime.
@@ -475,7 +478,8 @@ pkey={{ coturn_certs_private_key_path | mandatory | regex_replace(coturn_cont_ce
 # Allowed OpenSSL cipher list for TLS/DTLS connections.
 # Default value is "DEFAULT".
 #
-cipher-list="DEFAULT"
+# cipher-list="DEFAULT"
+cipher-list=ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305
 
 # CA file in OpenSSL format.
 # Forces TURN server to verify the client SSL certificates.
@@ -683,7 +687,7 @@ no-multicast-peers
 # the TURN client allocation request connection address family.
 #
 #allocation-default-address-family="ipv4"
-#allocation-default-address-family="ipv4"
+allocation-default-address-family="keep"
 
 # User name to run the process. After the initialization, the turnserver process
 # will attempt to change the current user ID to that user.
@@ -796,3 +800,26 @@ no-stun-backward-compatibility
 # binding responses.
 #
 response-origin-only-with-rfc5780
+
+denied-peer-ip=0.0.0.0-0.255.255.255
+denied-peer-ip=10.0.0.0-10.255.255.255
+denied-peer-ip=100.64.0.0-100.127.255.255
+denied-peer-ip=127.0.0.0-127.255.255.255
+denied-peer-ip=169.254.0.0-169.254.255.255
+denied-peer-ip=172.16.0.0-172.31.255.255
+denied-peer-ip=192.0.0.0-192.0.0.255
+denied-peer-ip=192.0.2.0-192.0.2.255
+denied-peer-ip=192.88.99.0-192.88.99.255
+denied-peer-ip=192.168.0.0-192.168.255.255
+denied-peer-ip=198.18.0.0-198.19.255.255
+denied-peer-ip=198.51.100.0-198.51.100.255
+denied-peer-ip=203.0.113.0-203.0.113.255
+denied-peer-ip=240.0.0.0-255.255.255.255
+denied-peer-ip=::1
+denied-peer-ip=64:ff9b::-64:ff9b::ffff:ffff
+denied-peer-ip=::ffff:0.0.0.0-::ffff:255.255.255.255
+denied-peer-ip=100::-100::ffff:ffff:ffff:ffff
+denied-peer-ip=2001::-2001:1ff:ffff:ffff:ffff:ffff:ffff:ffff
+denied-peer-ip=2002::-2002:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+denied-peer-ip=fc00::-fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+denied-peer-ip=fe80::-febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff

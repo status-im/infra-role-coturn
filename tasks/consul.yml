@@ -7,12 +7,12 @@
       - id:   '{{ coturn_service_name }}'
         name: '{{ coturn_service_name }}'
         tags: ['coturn', 'turn', 'stun']
-        port: '{{ coturn_stun_tcp_port }}'
+        port: '{{ coturn_listen_tls_port }}'
         address: '{{ ansible_local.wireguard.address }}'
         checks:
           - id:   '{{ coturn_service_name }}-app-health'
             type: 'tcp'
-            tcp:  'localhost:{{ coturn_stun_tcp_port }}'
+            tcp:  'localhost:{{ coturn_listen_tls_port }}'
 
       - id:   '{{ coturn_service_name }}-metrics'
         name: '{{ coturn_service_name }}-metrics'

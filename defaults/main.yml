@@ -28,8 +28,8 @@ coturn_external_ips: ['{{ ansible_host }}']
 coturn_metrics_port: 9641
 coturn_relay_min_port: 49152
 coturn_relay_max_port: 65535
-coturn_stun_tcp_port: 3478
-coturn_stun_tls_port: 5349
+coturn_listen_port: 3478
+coturn_listen_tls_port: 5349
 # Alt ports do not work with no-rfc5780 enabled.
 coturn_stun_tcp_alt_port: 8080
 coturn_stun_tls_alt_port: 8443
@@ -45,6 +45,6 @@ coturn_auth_enabled: false
 #coturn_auth_secret: ~
 
 # general container management
-compose_recreate: 'smart'
+compose_recreate: 'auto'
 compose_state: 'present'
 compose_restart: false
